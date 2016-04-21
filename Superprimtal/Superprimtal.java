@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Superprimtal {
 
-	static boolean[] nonPrime;
+	static boolean[] superPrime;
 	static int n;
 	static int k;
 	
@@ -11,13 +11,25 @@ public class Superprimtal {
 		n = input.nextInt();
 		k = 1;
 		for (int i = 0; i < n; i++) k *= 10;
-		nonPrime = new boolean[k];
-		nonPrime[1-1] = false;
+		superPrime = new boolean[k];
+		superPrime[1-1] = true;
 		for (int p = 2; p < k; p++) {
-			if (!nonPrime[p-1]) {
+			if (!superPrime[p-1]) {
 				for (int i = 2; i * p < k; i++) {
-					nonPrime[i * p - 1] = true;
+					superPrime[i * p - 1] = true;
 				}
+			}
+		}
+		superPrime[1-1] = false;
+		for (int p = 2; p < 10; p++) {
+			superPrime[p-1] = !superPrime[p-1];
+		}
+		for (int p = 10; p < k; p++) {
+			superPrime[p-1] = superPrime[(p/10) - 1] && !superPrime[p-1];
+		}
+		for (int p = k/10; p < k; p++) {
+			if (superPrime[p-1]) {
+				System.out.println(p);
 			}
 		}
 	}
