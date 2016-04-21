@@ -63,13 +63,15 @@ public class Teleports {
 		Set<Integer> g = check;
 		check = new TreeSet<Integer>();
 		for (int i: g) {
-			if (!sG[i] && pG[i] == 0) {
+			if (!sG[i]) {
 				done = false;
 				sG[i] = true;
 				if (sB[tG[i]]) {
 					sB[tG[i]] = false;
 					pG[tB[tG[i]]]--;
-					check.add(tB[tG[i]]);
+					if (pG[tB[tG[i]]] == 0) {
+						check.add(tB[tG[i]]);
+					}
 				}
 			}
 		}
@@ -82,7 +84,9 @@ public class Teleports {
 			pG[tB[i]]++;
 		}
 		for (int i = 0; i < nG; i++) {
-			check.add(i);
+			if (pG[i] == 0) {
+				check.add(i);
+			}
 		}
 		while (step());
 	}
