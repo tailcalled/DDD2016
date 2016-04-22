@@ -7,9 +7,11 @@ import java.util.Scanner;
 
 Input:
 
+INPUT.TXT
 2
 7 3 2
 8 2 5
+OFFER.TXT
 2
 1 7 3 5
 2 7 1 8 2 10
