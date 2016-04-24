@@ -40,25 +40,15 @@ public class Score {
 			cats.add(c);
 		}
 		Collections.sort(cats);
-		System.out.println(solve(0, m, 0, 0));
-	}
-
-	private static long solve(int cat, int time, long score, long bestSoFar) {
-		if (cat == cats.size()) return score;
-		Category c = cats.get(cat);
-		if (score * c.time + time * c.score < bestSoFar * c.time) {
-			return 0; //score + time * c.score;
+		long[] scoreByUsedTime = new long[m + 1];
+		for (Category c: cats) {
+			for (int time = c.time; time <= m; time++) {
+				scoreByUsedTime[time] = Math.max(scoreByUsedTime[time], scoreByUsedTime[time - c.time] + c.score);
+			}
 		}
 		long best = 0;
-		if (time >= c.time) {
-			long include = solve(cat, time - c.time, score + c.score, bestSoFar);
-			if (best < include) best = include;
-		}
-		long skip = solve(cat + 1, time, score, Math.max(bestSoFar, best));
-		if (best < skip) {
-			best = skip;
-		}
-		return best;
+		for (long x: scoreByUsedTime) if (best < x) best = x;
+		System.out.println(best);
 	}
 
 }
