@@ -20,11 +20,11 @@ public class Score {
 
 	static class Category implements Comparable<Category> {
 		
-		int time, score;
+		int time; long score;
 
 		@Override
 		public int compareTo(Category o) {
-			return Integer.compare(time * o.score, o.time * score);
+			return Long.compare(time * o.score, o.time * score);
 		}
 		
 	}
@@ -35,7 +35,7 @@ public class Score {
 		cats = new ArrayList<>();
 		for (int i = 0; i < n; i++) {
 			Category c = new Category();
-			c.score = in.nextInt();
+			c.score = in.nextLong();
 			c.time = in.nextInt();
 			cats.add(c);
 		}
@@ -43,18 +43,18 @@ public class Score {
 		System.out.println(solve(0, m, 0, 0));
 	}
 
-	private static int solve(int cat, int time, int score, int bestSoFar) {
+	private static long solve(int cat, int time, long score, long bestSoFar) {
 		if (cat == cats.size()) return score;
 		Category c = cats.get(cat);
-		if (score + time * c.score < c.time * bestSoFar) {
+		if (score * c.time + time * c.score < bestSoFar * c.time) {
 			return 0; //score + time * c.score;
 		}
-		int best = 0;
+		long best = 0;
 		if (time >= c.time) {
-			int include = solve(cat, time - c.time, score + c.score, bestSoFar);
+			long include = solve(cat, time - c.time, score + c.score, bestSoFar);
 			if (best < include) best = include;
 		}
-		int skip = solve(cat + 1, time, score, Math.max(bestSoFar, best));
+		long skip = solve(cat + 1, time, score, Math.max(bestSoFar, best));
 		if (best < skip) {
 			best = skip;
 		}
