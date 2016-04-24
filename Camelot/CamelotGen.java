@@ -25,10 +25,10 @@ public class CamelotGen {
 				if (y > 0 && x < 8 - 2) dist[pt(x, y)][pt(x + 2, y - 1)] = 1;
 				if (x < 8 - 2 && y < 8 - 1) dist[pt(x, y)][pt(x + 2, y + 1)] = 1;
 				if (x < 8 - 1 && y < 8 - 2) dist[pt(x, y)][pt(x + 1, y + 2)] = 1;
-				if (x == y) dist[pt(x, y)][pt(x, y)] = 0;
 			}
 		}
 		for (int i = 0; i < 8*8; i++) {
+			dist[i][i] = 0;
 			for (int j = 0; j < 8*8; j++) {
 				dist[i][j] = Math.min(dist[i][j], dist[j][i]);
 			}
