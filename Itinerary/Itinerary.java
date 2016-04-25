@@ -75,7 +75,9 @@ public class Itinerary {
 				visits[i][j] = -1;
 			}
 		}
-		System.out.println(findVisits(0, 0));
+		System.out.println(n);
+		int length = findVisits(0, 0);
+		System.out.println(length);
 	}
 
 	private static int findVisits(int start, int end) {
@@ -83,7 +85,7 @@ public class Itinerary {
 			return 1;
 		}
 		if (visits[start][end] == -1) {
-			int best = 0;
+			int best = -2;
 			for (int childA: flights[start]) {
 				for (int childB: flights[end]) {
 					if (childA == childB && childA != n - 1) continue;
